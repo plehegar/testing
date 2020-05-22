@@ -23,3 +23,7 @@
 | -- | -- |
 | Health | fire  |
 | Harm | water  |
+
+<hr>
+
+Generated from a [Google spreadsheet](https://docs.google.com/spreadsheets/d/1sHTQMO2Hrzsl4V0jWoPmPZrvfPAYan06_9OB9nYyTG4/)
