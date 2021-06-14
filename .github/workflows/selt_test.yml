@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cd foobar
-      - run: echo $PATH
+      - run: echo $PWD
   use-python:
     runs-on: ubuntu-latest
     name: Using a python script
