@@ -49,7 +49,8 @@ jobs:
         uses: Gottox/irc-message-action@v2
         with:
           channel: '#github-irc-notify'
-          server: 'irc.w3.org'
+          server: irc.w3.org
+          port: 6667
           nickname: plh-irc-github
           message: |-
             ${{ github.actor }} pushed to ${{ github.repository }} ${{ github.event.ref }}
