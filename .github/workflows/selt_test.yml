@@ -10,7 +10,7 @@ jobs:
       - run: npm install
       - run: npm start
   use-script:
-    name: "Using a shell script"
+    name: Using a shell script
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
         shell: bash
   use-python:
     runs-on: ubuntu-latest
-    name: Using Python
+    name: Using a python script
     steps:
       - uses: actions/checkout@v2
       - name: Setup python
@@ -28,4 +28,16 @@ jobs:
           architecture: x64
       - run: pip install aiohttp
       - run: python index.py
+  use-script-and-python:
+    runs-on: ubuntu-latest
+    name: Using a shell  and a python script
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+          architecture: x64
+      - run: ./python.sh
+        shell: bash
 
