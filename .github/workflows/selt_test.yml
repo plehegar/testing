@@ -21,8 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd foobar
-      - run: echo Not the directory you\'re looking for $PWD
+      - run: |
+        cd foobar
+        echo $PWD
   use-python:
     runs-on: ubuntu-latest
     name: Using a python script
@@ -59,5 +60,5 @@ jobs:
           port: 6667
           tls: false
           nickname: dummy-irc-github
-          message: |-
+          message: |
             ${{ github.actor }} pushed to ${{ github.repository }} commit ${{ github.sha }}
