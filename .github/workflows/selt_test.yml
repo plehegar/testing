@@ -12,5 +12,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-      - script: cd ./test
-      - script: echo $PATH
+      - name: Run build script
+        run: ./.github/scripts/build.sh
+        shell: bash
