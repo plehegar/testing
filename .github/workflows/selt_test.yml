@@ -44,13 +44,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Notifying IRC
     steps:
-      - uses: actions/checkout@v2
       - name: Setup IRC notifier
         uses: Gottox/irc-message-action@v2
         with:
           channel: '#github-irc-notify'
           server: irc.w3.org
           port: 6667
+          tls: false
           nickname: plh-irc-github
           message: |-
             ${{ github.actor }} pushed to ${{ github.repository }} ${{ github.event.ref }}
