@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cd foobar
-      - run: echo Not the directory you're looking for $PWD
+      - run: echo Not the directory you\'re looking for $PWD
   use-python:
     runs-on: ubuntu-latest
     name: Using a python script
