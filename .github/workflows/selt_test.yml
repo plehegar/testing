@@ -24,6 +24,7 @@ jobs:
       - run: |
         cd foobar
         echo $PWD
+      shell: bash
   use-python:
     runs-on: ubuntu-latest
     name: Using a python script
