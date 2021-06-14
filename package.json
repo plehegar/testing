@@ -1,0 +1,20 @@
+{
+  "name": "dummy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plehegar/dummy.git"
+  },
+  "author": "dummy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plehegar/dummy/issues"
+  },
+  "homepage": "https://github.com/plehegar/dummy#readme"
+}
