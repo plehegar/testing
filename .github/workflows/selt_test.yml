@@ -52,4 +52,4 @@ jobs:
           server: 'irc.w3.org'
           nickname: plh-irc-github
           message: |-
-          ${{ github.actor }} pushed to ${{ github.repository }} ${{ github.event.ref }}
+            ${{ github.actor }} pushed to ${{ github.repository }} ${{ github.event.ref }}
