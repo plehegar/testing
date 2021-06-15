@@ -95,7 +95,7 @@ jobs:
           server: irc.w3.org
           port: 6667
           tls: false
-          nickname: dummy-irc-github
+          nickname: github-action-irc
           message: |
             ${{ github.actor }} pushed to ${{ github.repository }} commit ${{ github.sha }}
 
