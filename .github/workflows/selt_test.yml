@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ./.github/scripts/deploy-output.sh
+      - run: ./.github/scripts/buid-output.sh
         shell: bash
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
