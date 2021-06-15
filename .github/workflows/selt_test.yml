@@ -71,6 +71,8 @@ jobs:
   use-deploy-script:
     name: Using a shell script to deploy on a GitHub branch
     runs-on: ubuntu-latest
+    env:
+      FOLDER: deploybuild
     steps:
       - uses: actions/checkout@v2
       # git update-index --chmod +x ./.github/scripts/build-output.sh

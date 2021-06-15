@@ -12,6 +12,8 @@ TMPDIR=$1
 
 echo Cleaning $TMPDIR before building
 
+echo FOLDER is $FOLDER
+
 rm -rf ${TMPDIR}
 mkdir ${TMPDIR}
 
