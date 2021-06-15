@@ -1,5 +1,4 @@
 #!/bin/bash
-set -ev
 
 if [ $# -eq 0 ]
 then
