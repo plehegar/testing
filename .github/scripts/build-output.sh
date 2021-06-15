@@ -9,9 +9,14 @@ fi
 
 TMPDIR=$1
 
+
+echo Cleaning $TMPDIR before building
+
 rm -rf ${TMPDIR}
 mkdir ${TMPDIR}
 
 # Place your build operations below
+
+echo Now building the output in the director ./$TMPDIR
 
 cp index.html ${TMPDIR}
