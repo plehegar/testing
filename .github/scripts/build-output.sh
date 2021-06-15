@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $FOLDER -eq "" ]
+if [ $FOLDER = "" ]
 then
  echo "build-output needs a build directory name in FOLDER env variable"
  exit 1
