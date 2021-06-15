@@ -39,7 +39,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
-      - run: java -cp java HelloWorldApp
+      - run: java -cp java HelloWorld
   use-python:
     runs-on: ubuntu-latest
     name: Using a python script
