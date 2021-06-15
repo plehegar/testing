@@ -15,8 +15,5 @@ git add .
 git commit -m "Built by GitHub action: ${STATUS}"
 git status
 
-// GITHUB_TOKEN
-//
-
 FULL_REPO=`https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git/`
 git push --force --quiet $FULL_REPO master:gh-pages
