@@ -29,6 +29,16 @@ jobs:
           cd foobar
           echo $PWD
         shell: bash
+  use-java:
+    name: Using a java program
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+- run: java -cp java HelloWorldApp
   use-python:
     runs-on: ubuntu-latest
     name: Using a python script
