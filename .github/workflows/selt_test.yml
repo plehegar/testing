@@ -1,5 +1,8 @@
 name: Learning GitHub actions
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   use-node:
     name: Using NodeJS
