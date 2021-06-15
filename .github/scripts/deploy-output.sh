@@ -9,7 +9,7 @@ cp index.html ./out/
 cd out
 git init
 git config user.name "GitHub-Action"
-git config user.email "github-action"
+git config user.email "github-action@users.noreply.github.com"
 ls
 git add .
 git commit -m "Built by GitHub action: ${STATUS}"
