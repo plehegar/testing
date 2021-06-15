@@ -1,17 +1,15 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]
+if [ $FOLDER -eq "" ]
 then
- echo "build-output needs a build directory name as argument"
+ echo "build-output needs a build directory name in FOLDER env variable"
  exit 1
 fi
 
-TMPDIR=$1
+TMPDIR=$FOLDER
 
 
 echo Cleaning $TMPDIR before building
-
-echo FOLDER is $FOLDER
 
 rm -rf ${TMPDIR}
 mkdir ${TMPDIR}
