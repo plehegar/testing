@@ -1,25 +1,37 @@
 name: Learning GitHub actions
+
+# Reference documentation: https://docs.github.com/en/actions/reference
+
+# See https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
 on:
   push:
     branches:
       - main
+
 jobs:
+
+# All of the following jobs will run in parallel
+
   use-node:
     name: Using NodeJS
     runs-on: ubuntu-latest
     steps:
+      # the following step will checkout your github repository
       - uses: actions/checkout@v2
+      # the following step will install nodejs, including npm
       - uses: actions/setup-node@v2
       - run: npm install
       - run: npm start
+
   use-script:
     name: Using a shell script
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # git update-index --chmod +x ./.github/scripts/build.sh
+      # don't forget: git update-index --chmod +x ./.github/scripts/build.sh
       - run: ./.github/scripts/build.sh
         shell: bash
+
   use-script-2:
     name: Using a shell script inline
     runs-on: ubuntu-latest
@@ -29,17 +41,20 @@ jobs:
           cd foobar
           echo $PWD
         shell: bash
+
   use-java:
     name: Using a java program
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Setup Java
+        # note that this is also deploy ant
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '11'
       - run: java -cp java HelloWorld
+
   use-python:
     runs-on: ubuntu-latest
     name: Using a python script
@@ -52,6 +67,8 @@ jobs:
           architecture: x64
       - run: pip install aiohttp
       - run: python index.py
+
+# this is an example when combining use-scruipt and use-python
   use-script-and-python:
     runs-on: ubuntu-latest
     name: Using a shell and a python script
@@ -62,9 +79,11 @@ jobs:
         with:
           python-version: 3.6
           architecture: x64
-      # git update-index --chmod +x ./python.sh
-      - run: ./python.sh
+      # don't forget: git update-index --chmod +x ./python.sh
+      - name: Run the script that invokes python
+        run: ./python.sh
         shell: bash
+
   use-irc:
     runs-on: ubuntu-latest
     name: Notifying IRC
@@ -79,6 +98,7 @@ jobs:
           nickname: dummy-irc-github
           message: |
             ${{ github.actor }} pushed to ${{ github.repository }} commit ${{ github.sha }}
+
   use-deploy-script:
     name: Using a shell script to deploy a build folder on a GitHub branch
     runs-on: ubuntu-latest
@@ -86,13 +106,14 @@ jobs:
       FOLDER: deploybuild
     steps:
       - uses: actions/checkout@v2
-      # git update-index --chmod +x ./.github/scripts/build-output.sh
-      - run: ./.github/scripts/build-output.sh
+      # don't forget: git update-index --chmod +x ./.github/scripts/build-output.sh
+      - name: Run the build-output.sh script
+        run: ./.github/scripts/build-output.sh
         shell: bash
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
           BRANCH: gh-pages
-          # FOLDER is already set up so no need to repeat here)
+          # FOLDER is already set up so no need to repeat here
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
