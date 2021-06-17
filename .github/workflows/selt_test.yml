@@ -84,6 +84,16 @@ jobs:
         run: ./python.sh
         shell: bash
 
+  use-w3c-echidna:
+    runs-on: ubuntu-latest
+    name: Use echidna as-is
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run curl
+        run: |
+        curl "https://labs.w3.org/echidna/api/request" --data "url=https://example.org/index.html" --data "decision=none" --data "token=NO_SECRET_FOR_YOU";
+        echo "ok"
+
   use-irc:
     runs-on: ubuntu-latest
     name: Notifying IRC
