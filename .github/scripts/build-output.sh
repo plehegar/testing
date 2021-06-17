@@ -19,3 +19,4 @@ mkdir ${TMPDIR}
 echo Now building the output in the director ./$TMPDIR
 
 cp index.html ${TMPDIR}
+cp redirect.html ${TMPDIR}
