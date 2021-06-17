@@ -98,9 +98,10 @@ jobs:
         env:
           URL: https://example.org/index.html
           DECISION: https://example.org/group_decision.html
+        # you can use ${{ secrets.W3C_TR_TOKEN }} instead of NONE and update your repo secret settings
         run: |
           echo Publishing $URL with $DECISION
-          curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=${{ secrets.W3C_TR_TOKEN }}"
+          curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=NONE"
           echo "ok"
 
   use-branch:
