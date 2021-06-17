@@ -92,7 +92,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run curl
         run: |
-          curl "https://labs.w3.org/echidna/api/request" --data "url=https://example.org/index.html" --data "decision=none" --data "token=NO_SECRET_FOR_YOU"
+          curl "https://labs.w3.org/echidna/api/request" --data "url=https://example.org/index.html" --data "decision=none" --data "token=${{ secrets.W3C_TR_TOKEN }}"
           echo "ok"
 
   use-irc:
