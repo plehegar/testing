@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+# GitHub secrets are stored in
+# https://github.com/[your_repo]/settings/secrets/actions
+# for example:
+#  https://github.com/w3c/pointerevents/settings/secrets/actions
+
 jobs:
 
 # All of the following jobs will run in parallel
@@ -86,14 +91,24 @@ jobs:
 
   use-w3c-echidna:
     runs-on: ubuntu-latest
-    name: Use echidna as-is on a named branch
-    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Use echidna as-is
     steps:
       - uses: actions/checkout@v2
       - name: Run curl
         run: |
           curl "https://labs.w3.org/echidna/api/request" --data "url=https://example.org/index.html" --data "decision=none" --data "token=${{ secrets.W3C_TR_TOKEN }}"
           echo "ok"
+
+  use-branch:
+    runs-on: ubuntu-latest
+    name: Use a named branch
+    if: ${{ github.ref == 'refs/heads/unknown-branch' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run curl
+        run: |
+          echo "This should never be run"
+          ./unknownCommand.sh "This doesn't exist and should not run"
 
   use-irc:
     runs-on: ubuntu-latest
