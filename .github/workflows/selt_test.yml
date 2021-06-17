@@ -86,7 +86,8 @@ jobs:
 
   use-w3c-echidna:
     runs-on: ubuntu-latest
-    name: Use echidna as-is
+    name: Use echidna as-is on a named branch
+    if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - uses: actions/checkout@v2
       - name: Run curl
