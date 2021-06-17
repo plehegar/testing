@@ -92,13 +92,14 @@ jobs:
   use-w3c-echidna:
     runs-on: ubuntu-latest
     name: Use echidna as-is
-    env:
-      URL: https://example.org/index.html
-      DECISION: https://example.org/group_decision.html
     steps:
       - uses: actions/checkout@v2
       - name: Run curl
+        env:
+          URL: https://example.org/index.html
+          DECISION: https://example.org/group_decision.html
         run: |
+          echo Publishing $URL with $DECISION
           curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=${{ secrets.W3C_TR_TOKEN }}"
           echo "ok"
 
@@ -115,7 +116,8 @@ jobs:
 
   use-irc:
     runs-on: ubuntu-latest
-    name: Notifying IRC
+    name: Notifying IRC dependant on an other job
+    needs: use-w3c-echidna
     steps:
       - name: Setup IRC notifier
         uses: Gottox/irc-message-action@v2
