@@ -93,8 +93,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Use echidna as-is
     env:
-      URL="https://example.org/index.html"
-      DECISION="https://example.org/group_decision.html"
+      URL: https://example.org/index.html
+      DECISION: https://example.org/group_decision.html
     steps:
       - uses: actions/checkout@v2
       - name: Run curl
