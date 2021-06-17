@@ -1,0 +1,44 @@
+name: Learning GitHub actions
+
+# Reference documentation: https://docs.github.com/en/actions/reference
+
+# See https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
+on:
+  push:
+    branches:
+      - postgresql
+
+# GitHub secrets are stored in
+# https://github.com/[your_repo]/settings/secrets/actions
+# for example:
+#  https://github.com/w3c/pointerevents/settings/secrets/actions
+
+jobs:
+
+# All of the following jobs will run in parallel
+
+  use-node:
+    name: Using NodeJS
+    runs-on: ubuntu-latest
+    steps:
+      # the following step will checkout your github repository
+      - uses: actions/checkout@v2
+      # the following step will install nodejs, including npm
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '10'
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '12'
+      - run: npm install -g @lhci/cli@0.3.x
+      - run: sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
+      - run: sudo pg_ctlcluster 12 main restartnpm start
+      - run: source config/test.env
+      - run: sudo -u postgres createdb ${PGDATABASE}
+      - run: sudo -u postgres psql -c "CREATE ROLE ${PGUSER} WITH LOGIN PASSWORD '${PGPASSWORD}'"
+      - run: sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE ${PGDATABASE} to ${PGUSER};"
+      - run: yarn sequelize:test db:migrate
+      - run: yarn sequelize:test db:seed:all
+      - run: yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_1}
+      - run: yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_2}
+      - run: yarn test
