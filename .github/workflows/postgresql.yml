@@ -26,21 +26,24 @@ jobs:
         with:
           node-version: '10'
       - name: Install postgresql 12
-        run: sudo apt-get -y install postgresql-12
-        run: sudo apt-get -y install postgresql-client-12
+        run: |
+          sudo apt-get -y install postgresql-12
+          sudo apt-get -y install postgresql-client-12
       - name: before_install
-        run: npm install -g @lhci/cli@0.3.x
-        run: sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
-        run: sudo pg_ctlcluster 12 main restart
+        run: |
+          npm install -g @lhci/cli@0.3.x
+          sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
+          sudo pg_ctlcluster 12 main restart
       - name: before_script
-        run: source config/test.env
-        run: sudo -u postgres createdb ${PGDATABASE}
-        run: echo Created ${PGDATABASE}
-        run: sudo -u postgres psql -c "CREATE ROLE ${PGUSER} WITH LOGIN PASSWORD '${PGPASSWORD}'"
-        run: sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE ${PGDATABASE} to ${PGUSER};"
-        run: yarn sequelize:test db:migrate
-        run: yarn sequelize:test db:seed:all
-        run: yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_1}
-        run: yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_2}
+        run: |
+          source config/test.env
+          sudo -u postgres createdb ${PGDATABASE}
+          echo Created ${PGDATABASE}
+          sudo -u postgres psql -c "CREATE ROLE ${PGUSER} WITH LOGIN PASSWORD '${PGPASSWORD}'"
+          sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE ${PGDATABASE} to ${PGUSER};"
+          yarn sequelize:test db:migrate
+          yarn sequelize:test db:seed:all
+          yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_1}
+          yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_2}
       - name: script
         run: yarn test
