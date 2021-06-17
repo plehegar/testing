@@ -17,27 +17,30 @@ jobs:
 
 # All of the following jobs will run in parallel
 
-  use-node:
-    name: Using NodeJS
+  main:
+    name: Using NodeJS and Postgres 12
     runs-on: ubuntu-20.04
     steps:
-      # the following step will checkout your github repository
       - uses: actions/checkout@v2
-      # the following step will install nodejs, including npm
       - uses: actions/setup-node@v2
         with:
           node-version: '10'
-      - run: sudo apt-get -y install postgresql-12
-      - run: sudo apt-get -y install postgresql-client-12
-      - run: npm install -g @lhci/cli@0.3.x
-      - run: sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
-      - run: sudo pg_ctlcluster 12 main restart
-      - run: source config/test.env
-      - run: sudo -u postgres createdb ${PGDATABASE}
-      - run: sudo -u postgres psql -c "CREATE ROLE ${PGUSER} WITH LOGIN PASSWORD '${PGPASSWORD}'"
-      - run: sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE ${PGDATABASE} to ${PGUSER};"
-      - run: yarn sequelize:test db:migrate
-      - run: yarn sequelize:test db:seed:all
-      - run: yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_1}
-      - run: yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_2}
-      - run: yarn test
+      - name: Install postgresql 12
+        run: sudo apt-get -y install postgresql-12
+        run: sudo apt-get -y install postgresql-client-12
+      - name: before_install
+        run: npm install -g @lhci/cli@0.3.x
+        run: sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
+        run: sudo pg_ctlcluster 12 main restart
+      - name: before_script
+        run: source config/test.env
+        run: sudo -u postgres createdb ${PGDATABASE}
+        run: echo Created ${PGDATABASE}
+        run: sudo -u postgres psql -c "CREATE ROLE ${PGUSER} WITH LOGIN PASSWORD '${PGPASSWORD}'"
+        run: sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE ${PGDATABASE} to ${PGUSER};"
+        run: yarn sequelize:test db:migrate
+        run: yarn sequelize:test db:seed:all
+        run: yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_1}
+        run: yarn workspace server db-import-tests:test -c ${IMPORT_ARIA_AT_TESTS_COMMIT_2}
+      - name: script
+        run: yarn test
