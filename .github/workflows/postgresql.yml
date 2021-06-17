@@ -31,7 +31,7 @@ jobs:
       - run: sudo apt-get -y install postgresql-client-12
       - run: npm install -g @lhci/cli@0.3.x
       - run: sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
-      - run: sudo pg_ctlcluster 12 main restartnpm start
+      - run: sudo pg_ctlcluster 12 main restart
       - run: source config/test.env
       - run: sudo -u postgres createdb ${PGDATABASE}
       - run: sudo -u postgres psql -c "CREATE ROLE ${PGUSER} WITH LOGIN PASSWORD '${PGPASSWORD}'"
