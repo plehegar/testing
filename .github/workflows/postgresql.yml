@@ -19,7 +19,7 @@ jobs:
 
   use-node:
     name: Using NodeJS
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       # the following step will checkout your github repository
       - uses: actions/checkout@v2
@@ -27,9 +27,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '10'
-      - uses: harmon758/postgresql-action@v1
-        with:
-          postgresql version: '12'
+      - run: sudo apt-get -y install postgresql-12
+      - run: sudo apt-get -y install postgresql-client-12
       - run: npm install -g @lhci/cli@0.3.x
       - run: sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/12/main/postgresql.conf
       - run: sudo pg_ctlcluster 12 main restartnpm start
