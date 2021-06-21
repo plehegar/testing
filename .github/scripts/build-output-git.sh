@@ -47,8 +47,8 @@ cd $MAIN
 
 echo Now building the output in the director $TARGET
 
-cp -u index.html ${TARGET}
-cp -u redirect.html ${TARGET}
+cp index.html ${TARGET}
+cp redirect.html ${TARGET}
 
 cd ${TARGET}
 
@@ -56,6 +56,9 @@ ls -la
 
 git add -A .
 
+git status
+
 git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$GITHUB_REF\""
 
-git push
+git push --force
+
