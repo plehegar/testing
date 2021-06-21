@@ -35,6 +35,8 @@ echo Using $REPO_URL
 
 git clone $REPO_URL.git
 
+git remote set-url origin https://{GITHUB_ACTOR}:{GITHUB_TOKEN}@github.com/{username}/project.git
+
 cd testing
 
 git checkout gh-pages
@@ -45,7 +47,7 @@ TARGET=$PWD
 
 cd $MAIN
 
-echo Now building the output in the director $TARGET on behalf of $GITHUB_ACTOR
+echo Now building the output in the director $TARGET
 
 cp index.html ${TARGET}
 cp redirect.html ${TARGET}
