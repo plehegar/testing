@@ -54,7 +54,11 @@ cd ${TARGET}
 
 ls -la
 
+echo Add the changes
+
 git add -A .
+
+echo Diff
 
 git diff
 
