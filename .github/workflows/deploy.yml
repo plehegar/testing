@@ -26,6 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # don't forget: git update-index --chmod +x ./.github/scripts/build-output-git.sh
-      - name: Run the build-output.sh script
+      - name: Run the build-output-git.sh script
         run: ./.github/scripts/build-output-git.sh
         shell: bash

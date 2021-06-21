@@ -45,17 +45,17 @@ TARGET=$PWD
 
 cd $MAIN
 
-echo Now building the output in the director $MAIN
+echo Now building the output in the director $TARGET
 
-cp -u index.html ${MAIN}
-cp -u redirect.html ${MAIN}
+cp -u index.html ${TARGET}
+cp -u redirect.html ${TARGET}
 
-cd ${MAIN}
+cd ${TARGET}
 
 ls -la
 
 git add -A .
 
-git commit -m "Deploy to GitHub Pages: ${GITHUB_SHA} from branch \"${GITHUB_REF}\""
+git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$GITHUB_REF\""
 
 git push
