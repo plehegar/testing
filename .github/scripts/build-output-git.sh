@@ -37,8 +37,6 @@ git clone $REPO_URL
 
 cd testing
 
-# git remote set-url origin
-
 git checkout gh-pages
 
 TARGET=$PWD
@@ -58,13 +56,11 @@ ls -la
 
 git add -A .
 
+git diff
+
 echo Commit the changes
 
 git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$GITHUB_REF\""
-
-echo Information
-
-git remote -v
 
 echo Attempt to push
 
