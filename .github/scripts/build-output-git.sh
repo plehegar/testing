@@ -60,5 +60,9 @@ git status
 
 git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$GITHUB_REF\""
 
+git branch -a
+
+git remote -v
+
 git push --force
 
