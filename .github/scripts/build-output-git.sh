@@ -33,6 +33,8 @@ echo Using $REPO_URL
 
 git clone $REPO_URL.git
 
+ls -la
+
 git checkout gh-pages
 
 echo $PWD
