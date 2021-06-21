@@ -45,7 +45,7 @@ TARGET=$PWD
 
 cd $MAIN
 
-echo Now building the output in the director $TARGET
+echo Now building the output in the director $TARGET on behalf of $GITHUB_ACTOR
 
 cp index.html ${TARGET}
 cp redirect.html ${TARGET}
@@ -64,5 +64,10 @@ git branch -a
 
 git remote -v
 
+echo Attempt to push
+
 git push --force
+
+echo done
+
 
