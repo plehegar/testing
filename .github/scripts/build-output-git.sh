@@ -31,7 +31,7 @@ REPO_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
 
 echo Using $REPO_URL
 
-git clone '$REPO_URL.git'
+git clone $REPO_URL.git
 
 git checkout gh-pages
 
