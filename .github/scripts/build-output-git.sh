@@ -21,14 +21,14 @@ TMPDIR=$FOLDER
 
 echo Cleaning $TMPDIR before building
 
-rm -rf ${TMPDIR}
-mkdir ${TMPDIR}
+rm -rf $TMPDIR
+mkdir $TMPDIR
 
-cd ${TMPDIR}
+cd $TMPDIR
 
-REPO_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
+REPO_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
 
-git clone '${REPO_URL}.git'
+git clone '$REPO_URL.git'
 
 git checkout gh-pages
 
