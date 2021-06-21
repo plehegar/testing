@@ -37,7 +37,7 @@ git clone $REPO_URL.git
 
 cd testing
 
-git remote set-url origin https://{GITHUB_ACTOR}:{GITHUB_TOKEN}@github.com/{username}/project.git
+git remote set-url origin https://{GITHUB_ACTOR}:{GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY.git
 
 git checkout gh-pages
 
