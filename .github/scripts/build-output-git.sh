@@ -37,7 +37,7 @@ git clone $REPO_URL.git
 
 cd testing
 
-git remote set-url origin https://{GITHUB_ACTOR}:{GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY.git
+git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
 
 git checkout gh-pages
 
@@ -63,8 +63,6 @@ echo Commit the changes
 git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$GITHUB_REF\""
 
 echo Information
-
-git branch -a
 
 git remote -v
 
