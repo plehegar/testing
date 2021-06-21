@@ -47,8 +47,8 @@ cd $MAIN
 
 echo Now building the output in the director $MAIN
 
-cp index.html ${MAIN}
-cp redirect.html ${MAIN}
+cp -u index.html ${MAIN}
+cp -u redirect.html ${MAIN}
 
 cd ${MAIN}
 
