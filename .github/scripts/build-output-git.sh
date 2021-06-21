@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ $FOLDER = "" ]
 then
@@ -27,6 +28,8 @@ mkdir $TMPDIR
 cd $TMPDIR
 
 REPO_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+
+echo Using $REPO_URL
 
 git clone '$REPO_URL.git'
 
