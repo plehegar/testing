@@ -29,15 +29,15 @@ mkdir $TMPDIR
 
 cd $TMPDIR
 
-REPO_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+REPO_URL="https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 
-echo Using $REPO_URL
+echo Using $GITHUB_REPOSITORY
 
-git clone $REPO_URL.git
+git clone $REPO_URL
 
 cd testing
 
-git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
+# git remote set-url origin
 
 git checkout gh-pages
 
