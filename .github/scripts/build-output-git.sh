@@ -13,9 +13,9 @@ then
  exit 1
 fi
 
-#git config --global user.email "github-action@users.noreply.github.com"
-#git config --global user.name $GITHUB_ACTOR
-#git config --global user.password $GITHUB_TOKEN
+git config --global user.email "github-action@users.noreply.github.com"
+git config --global user.name $GITHUB_ACTOR
+git config --global user.password $GITHUB_TOKEN
 
 TMPDIR=$FOLDER
 
