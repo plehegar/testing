@@ -37,6 +37,7 @@ echo $PWD
 ls -la
 
 exit 0
+
 # Place your build operations below
 
 echo Now building the output in the director ./$TMPDIR
