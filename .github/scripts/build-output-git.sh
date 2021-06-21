@@ -35,6 +35,8 @@ git clone $REPO_URL.git
 
 ls -la
 
+cd testing
+
 git checkout gh-pages
 
 echo $PWD
