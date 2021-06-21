@@ -45,12 +45,14 @@ TARGET=$PWD
 
 cd $MAIN
 
-echo Now building the output in the director $TARGET
+echo Now building the output in $TARGET
 
 cp index.html ${TARGET}
 cp redirect.html ${TARGET}
 
 cd ${TARGET}
+
+cat index.html
 
 ls -la
 
