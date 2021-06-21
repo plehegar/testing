@@ -22,6 +22,8 @@ TMPDIR=$FOLDER
 
 echo Cleaning $TMPDIR before building
 
+MAIN=$PWD
+
 rm -rf $TMPDIR
 mkdir $TMPDIR
 
@@ -33,35 +35,27 @@ echo Using $REPO_URL
 
 git clone $REPO_URL.git
 
-ls -la
-
 cd testing
 
 git checkout gh-pages
 
-echo $PWD
-
-ls -la
-
-exit 0
+TARGET=$PWD
 
 # Place your build operations below
 
-echo Now building the output in the director ./$TMPDIR
+cd $MAIN
 
-cp index.html ${TMPDIR}
-cp redirect.html ${TMPDIR}
+echo Now building the output in the director $MAIN
 
-cd ${TMPDIR}
+cp index.html ${MAIN}
+cp redirect.html ${MAIN}
 
-const repoURI = `https://x-access-token:${token}@github.com/${}.git/`
+cd ${MAIN}
 
-git remote set-url origin "${repoURI}"
-
+ls -la
 
 git add -A .
-git commit -m "Deploy to GitHub Pages: ${GITHUB_SHA} from branch \"${GITHUB_REF}\""
 
-SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
+git commit -m "Deploy to GitHub Pages: ${GITHUB_SHA} from branch \"${GITHUB_REF}\""
 
 git push
