@@ -73,7 +73,7 @@ jobs:
       - run: pip install aiohttp
       - run: python index.py
 
-# this is an example when combining use-scruipt and use-python
+  # this is an example when combining use-script and use-python
   use-script-and-python:
     runs-on: ubuntu-latest
     name: Using a shell and a python script
@@ -98,7 +98,7 @@ jobs:
         env:
           URL: https://example.org/index.html
           DECISION: https://example.org/group_decision.html
-        # you can use ${{ secrets.W3C_TR_TOKEN }} instead of NONE and update your repo secret settings
+        # you can use ${{ secrets.W3C_TR_TOKEN }} instead of NONE if you update your repo secret settings
         run: |
           echo Publishing $URL with $DECISION
           curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=NONE"
