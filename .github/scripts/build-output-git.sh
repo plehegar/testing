@@ -1,7 +1,10 @@
 #!/bin/bash
-set -ex
+set -exu
+# e: Exit immediately if a command exits with a non-zero status
+# x: Print commands and their arguments as they are executed
+# u: Treat unset variables as an error when substituting
 
-if [ $FOLDER = "" ]
+if [ "$FOLDER" = "" ]
 then
  echo "build-output-git needs a build directory name in FOLDER env variable"
  exit 1
@@ -33,8 +36,6 @@ echo "SHA: $SHA"
 echo "GITHUB_SHA: $SHA"
 
 
-
-
 TMPDIR=$FOLDER
 
 echo Cleaning $TMPDIR before building
@@ -42,23 +43,24 @@ echo Cleaning $TMPDIR before building
 MAIN=$PWD
 
 rm -rf $TMPDIR
-mkdir $TMPDIR
-
-cd $TMPDIR
 
 REPO_URL="https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 
 echo Using $GITHUB_REPOSITORY
 
-git clone $REPO_URL
+git clone $REPO_URL $FOLDER
 
-cd testing
+ls $FOLDER
+
+cd $FOLDER/testing
 
 # git remote set-url origin $REPO_URL
 
-git checkout gh-pages
-
 TARGET=$PWD
+TARGET_BRANCH=gh-pages
+
+git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+
 
 # Place your build operations below
 
@@ -91,8 +93,6 @@ git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$GITHUB_REF\""
 
 echo Attempt to push
 
-git push --force $REPO_URL gh-pages
+git push --force $REPO_URL $TARGET_BRANCH
 
 echo done
-
-
