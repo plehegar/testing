@@ -4,6 +4,9 @@ name: Learning GitHub actions
 
 # See https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
 on:
+  pull_request:
+    branches:
+      - deploy
   push:
     branches:
       - deploy
