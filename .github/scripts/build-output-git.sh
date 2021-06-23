@@ -17,8 +17,25 @@ git config --global user.email "github-action@users.noreply.github.com"
 git config --global user.name $GITHUB_ACTOR
 git config --global user.password $GITHUB_TOKEN
 
-TMPDIR=$FOLDER
+TRAVIS_BRANCH=${GH_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}
+TRAVIS_PULL_REQUEST=${GH_EVENT_NUMBER:-false}
 
+echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
+echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
+
+REPO=`git config remote.origin.url`
+SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
+SHA=`git rev-parse --verify HEAD`
+
+echo "REPO: $REPO"
+echo "SSH_REPO: $SSH_REPO"
+echo "SHA: $SHA"
+echo "GITHUB_SHA: $SHA"
+
+
+
+
+TMPDIR=$FOLDER
 
 echo Cleaning $TMPDIR before building
 
@@ -36,6 +53,8 @@ echo Using $GITHUB_REPOSITORY
 git clone $REPO_URL
 
 cd testing
+
+git remote set-url origin $REPO_URL
 
 git checkout gh-pages
 
@@ -56,12 +75,6 @@ cat index.html
 
 ls -la
 
-TRAVIS_BRANCH=${GH_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}
-TRAVIS_PULL_REQUEST=${GH_EVENT_NUMBER:-false}
-
-echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
-echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
-
 if [ $TRAVIS_PULL_REQUEST != "false" ]
 then
   exit 0
@@ -81,7 +94,7 @@ git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$GITHUB_REF\""
 
 echo Attempt to push
 
-git push --force
+git push --force $REPO_URL gh-pages
 
 echo done
 
