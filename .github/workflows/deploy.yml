@@ -23,8 +23,8 @@ jobs:
     env:
       FOLDER: deploybuild
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GITHUB_BRANCH: ${{ github.head_ref }}
-      GITHUB_EVENT_NUMBER: ${{ github.event.number }}
+      GH_BRANCH: ${{ github.head_ref }}
+      GH_EVENT_NUMBER: ${{ github.event.number }}
     steps:
       - uses: actions/checkout@v2
       # don't forget: git update-index --chmod +x ./.github/scripts/build-output-git.sh
