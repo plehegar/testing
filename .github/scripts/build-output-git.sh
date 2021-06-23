@@ -57,7 +57,7 @@ cat index.html
 ls -la
 
 TRAVIS_BRANCH=${GH_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}
-TRAVIS_PULL_REQUESTT=${GH_EVENT_NUMBER:-$(echo false)}
+TRAVIS_PULL_REQUEST=${GH_EVENT_NUMBER:-$(echo false)}
 
 echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
 echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
