@@ -4,21 +4,14 @@ set -exu
 # x: Print commands and their arguments as they are executed
 # u: Treat unset variables as an error when substituting
 
-if [ "$FOLDER" = "" ]
-then
- echo "build-output-git needs a build directory name in FOLDER env variable"
- exit 1
-fi
+# FOLDER: env variable in your YML file to indicate the output directory
+# GITHUB_TOKEN: env variable for ${{ secrets.GITHUB_TOKEN }} in your YML file
 
-if [ $GITHUB_TOKEN = "" ]
-then
- echo "build-output-git needs the Github token in GITHUB_TOKEN env variable"
- exit 1
-fi
+echo "FOLDER: ${FOLDER}"
 
-git config --global user.email "github-action@users.noreply.github.com"
-git config --global user.name $GITHUB_ACTOR
 git config --global user.password $GITHUB_TOKEN
+git config --global user.name $GITHUB_ACTOR
+git config --global user.email "github-action@users.noreply.github.com"
 
 # Recreate some Travis CI env variables
 TRAVIS_BRANCH=${GH_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}
