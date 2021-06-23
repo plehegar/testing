@@ -146,7 +146,7 @@ jobs:
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
-          BRANCH: gh-pages
+          BRANCH: gh-pages-2
           # FOLDER is already set up so no need to repeat here
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -156,6 +156,7 @@ jobs:
     env:
       FOLDER: deploybuild
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # The following variables will be used to recreate some Travis CI env variables
       GH_BRANCH: ${{ github.head_ref }}
       GH_EVENT_NUMBER: ${{ github.event.number }}
     steps:

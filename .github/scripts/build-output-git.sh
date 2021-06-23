@@ -20,6 +20,7 @@ git config --global user.email "github-action@users.noreply.github.com"
 git config --global user.name $GITHUB_ACTOR
 git config --global user.password $GITHUB_TOKEN
 
+# Recreate some Travis CI env variables
 TRAVIS_BRANCH=${GH_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}
 TRAVIS_PULL_REQUEST=${GH_EVENT_NUMBER:-false}
 
@@ -57,19 +58,24 @@ TARGET_BRANCH=gh-pages
 
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 
-# Place your build operations below
 
 cd $MAIN
+
+# Place your build operations below
+# new files should go into $TARGET
 
 echo Now building the output in $TARGET
 
 cp index.html ${TARGET}
 cp redirect.html ${TARGET}
 
+# End of building the
+
 cd ${TARGET}
 
 if [ $TRAVIS_PULL_REQUEST != "false" ]
 then
+  # this is a pull request so exit
   exit 0
 fi
 
