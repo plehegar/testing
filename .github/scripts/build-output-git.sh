@@ -62,8 +62,10 @@ TRAVIS_PULL_REQUEST=${GH_EVENT_NUMBER:-false}
 echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
 echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
 
-exit 0
-
+if [ $TRAVIS_PULL_REQUEST != "false" ]
+then
+  exit 0
+fi
 
 echo Diff
 
