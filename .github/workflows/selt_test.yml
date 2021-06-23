@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup Java
-        # note that this is also deploy ant
+        # note that this also deploys ant
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
