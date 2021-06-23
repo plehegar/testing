@@ -4,6 +4,7 @@ set -exu
 # x: Print commands and their arguments as they are executed
 # u: Treat unset variables as an error when substituting
 
+# GITHUB_EVENT_PATH is a JSON file so ...this is a bit of a hack...
 COMMIT_AUTHOR_EMAIL=`cat $GITHUB_EVENT_PATH | grep email | head -n 1 | cut -d ":" -f2 | cut -d '"' -f2`
 
 git config --global user.email $COMMIT_AUTHOR_EMAIL
