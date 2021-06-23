@@ -4,7 +4,9 @@ set -exu
 # x: Print commands and their arguments as they are executed
 # u: Treat unset variables as an error when substituting
 
-git config --global user.email "github-action@users.noreply.github.com"
+COMMIT_AUTHOR_EMAIL=`cat $GITHUB_EVENT_PATH | grep email | head -n 1 | cut -d ":" -f2 | cut -d '"' -f2`
+
+git config --global user.email $COMMIT_AUTHOR_EMAIL
 git config --global user.name $GITHUB_ACTOR
 git config --global user.password $GITHUB_TOKEN
 
@@ -47,10 +49,6 @@ cp redirect.html ${TARGET}
 # End of building the
 
 cd ${TARGET}
-
-
-cat $GITHUB_EVENT_PATH
-
 
 exit 0
 
