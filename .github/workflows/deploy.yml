@@ -24,7 +24,6 @@ jobs:
     name: Using a shell script to deploy a build folder on a GitHub branch
     runs-on: ubuntu-latest
     env:
-      FOLDER: deploybuild
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_BRANCH: ${{ github.head_ref }}
       GH_EVENT_NUMBER: ${{ github.event.number }}
