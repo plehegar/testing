@@ -27,23 +27,11 @@ TRAVIS_PULL_REQUEST=${GH_EVENT_NUMBER:-false}
 echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
 echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
 
-REPO=`git config remote.origin.url`
-SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
-SHA=`git rev-parse --verify HEAD`
-
-echo "REPO: $REPO"
-echo "SSH_REPO: $SSH_REPO"
-echo "SHA: $SHA"
-echo "GITHUB_SHA: $SHA"
-
-
-TMPDIR=$FOLDER
-
-echo Cleaning $TMPDIR before building
+echo Cleaning $FOLDER before building
 
 MAIN=$PWD
 
-rm -rf $TMPDIR
+rm -rf $FOLDER
 
 REPO_URL="https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 
@@ -57,7 +45,6 @@ TARGET=$PWD
 TARGET_BRANCH=gh-pages
 
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-
 
 cd $MAIN
 
@@ -90,10 +77,10 @@ git add -A .
 
 echo Commit the changes
 
-git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$GITHUB_REF\""
+git commit -m "Deploy to GitHub Pages: $GITHUB_SHA from branch \"$TRAVIS_BRANCH\""
 
 echo Attempt to push
 
-git push --force $REPO_URL $TARGET_BRANCH
+git push $REPO_URL $TARGET_BRANCH
 
 echo done
