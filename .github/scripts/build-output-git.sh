@@ -50,17 +50,12 @@ echo Using $GITHUB_REPOSITORY
 
 git clone $REPO_URL $FOLDER
 
-ls $FOLDER
-
-cd $FOLDER/testing
-
-# git remote set-url origin $REPO_URL
+cd $FOLDER
 
 TARGET=$PWD
 TARGET_BRANCH=gh-pages
 
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-
 
 # Place your build operations below
 
