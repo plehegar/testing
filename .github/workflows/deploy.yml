@@ -1,0 +1,36 @@
+name: Learning GitHub actions
+
+# Reference documentation: https://docs.github.com/en/actions/reference
+
+# See https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
+on:
+  pull_request:
+    branches:
+      - deploy
+  push:
+    branches:
+      - deploy
+
+# GitHub secrets are stored in
+# https://github.com/[your_repo]/settings/secrets/actions
+# for example:
+#  https://github.com/w3c/pointerevents/settings/secrets/actions
+
+jobs:
+
+# All of the following jobs will run in parallel
+
+  use-deploy-script:
+    name: Using a shell script to deploy a build folder on a GitHub branch
+    runs-on: ubuntu-latest
+    env:
+      FOLDER: deploybuild
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_BRANCH: ${{ github.head_ref }}
+      GH_EVENT_NUMBER: ${{ github.event.number }}
+    steps:
+      - uses: actions/checkout@v2
+      # don't forget: git update-index --chmod +x ./.github/scripts/build-output-git.sh
+      - name: Run the build-output-git.sh script
+        run: ./.github/scripts/build-output-git.sh
+        shell: bash
