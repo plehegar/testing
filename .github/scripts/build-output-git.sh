@@ -80,9 +80,10 @@ then
   exit 0
 fi
 
-echo Diff
-
-git diff
+if [[ -z $(git status --porcelain) ]]; then
+    echo "No changes to the output on this push; exiting."
+    exit 0
+fi
 
 echo Add the changes
 
