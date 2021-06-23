@@ -9,9 +9,12 @@ set -exu
 
 echo "FOLDER: ${FOLDER}"
 
+# set the GitHub credentials and env
 git config --global user.password $GITHUB_TOKEN
 git config --global user.name $GITHUB_ACTOR
 git config --global user.email "github-action@users.noreply.github.com"
+
+REPO_URL="https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 
 # Recreate some Travis CI env variables
 TRAVIS_BRANCH=${GH_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}
@@ -25,8 +28,6 @@ echo Cleaning $FOLDER before building
 MAIN=$PWD
 
 rm -rf $FOLDER
-
-REPO_URL="https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 
 echo Using $GITHUB_REPOSITORY
 
