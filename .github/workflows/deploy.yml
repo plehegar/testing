@@ -23,9 +23,8 @@ jobs:
     env:
       FOLDER: deploybuild
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      TRAVIS_REPO_SLUG: ${{ github.repository }}
-      TRAVIS_BRANCH: ${{ github.head_ref }}
-      TRAVIS_PULL_REQUEST: ${{ github.event.number }}
+      GITHUB_BRANCH: ${{ github.head_ref }}
+      GITHUB_EVENT_NUMBER: ${{ github.event.number }}
     steps:
       - uses: actions/checkout@v2
       # don't forget: git update-index --chmod +x ./.github/scripts/build-output-git.sh
