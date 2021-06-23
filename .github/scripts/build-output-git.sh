@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 if [ $FOLDER = "" ]
 then
@@ -70,10 +70,6 @@ cp index.html ${TARGET}
 cp redirect.html ${TARGET}
 
 cd ${TARGET}
-
-cat index.html
-
-ls -la
 
 if [ $TRAVIS_PULL_REQUEST != "false" ]
 then
