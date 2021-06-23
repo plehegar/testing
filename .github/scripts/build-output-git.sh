@@ -51,8 +51,6 @@ cp redirect.html ${TARGET}
 
 cd ${TARGET}
 
-exit 0
-
 if [ $TRAVIS_PULL_REQUEST != "false" ]
 then
   # this is a pull request so exit
