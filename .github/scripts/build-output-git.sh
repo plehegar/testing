@@ -54,7 +54,7 @@ git clone $REPO_URL
 
 cd testing
 
-git remote set-url origin $REPO_URL
+# git remote set-url origin $REPO_URL
 
 git checkout gh-pages
 
