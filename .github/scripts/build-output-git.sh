@@ -68,7 +68,7 @@ git add -A .
 
 echo Commit the changes
 
-git commit -m ":robot: Deploy to GitHub Pages: $GITHUB_SHA from branch $GITHUB_SERVER/$GITHUB_REPOSITORY/tree/$TRAVIS_BRANCH"
+git commit -m ":robot: Deploy to GitHub Pages: $GITHUB_SHA from branch $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/$TRAVIS_BRANCH"
 
 echo Attempt to push
 
