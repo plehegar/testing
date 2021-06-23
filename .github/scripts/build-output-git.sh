@@ -56,6 +56,15 @@ cat index.html
 
 ls -la
 
+echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
+echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
+echo "TRAVIS_REPO_SLUG: ${TRAVIS_REPO_SLUG}"
+echo "TRAVIS_SECURE_ENV_VARS: ${TRAVIS_SECURE_ENV_VARS}"
+
+
+exit 0
+
+
 echo Diff
 
 git diff
