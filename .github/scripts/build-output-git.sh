@@ -5,10 +5,10 @@ set -exu
 # u: Treat unset variables as an error when substituting
 
 # GITHUB_EVENT_PATH is a JSON file so ...this is a bit of a hack...
-COMMIT_AUTHOR_EMAIL=`cat $GITHUB_EVENT_PATH | grep email | head -n 1 | cut -d ":" -f2 | cut -d '"' -f2`
+cat $GITHUB_EVENT_PATH
 
-git config --global user.email $COMMIT_AUTHOR_EMAIL
-git config --global user.name $GITHUB_ACTOR
+git config --global user.email github-action@users.noreply.github.com
+git config --global user.name w3cbot
 git config --global user.password $GITHUB_TOKEN
 
 # Recreate some Travis CI env variables
