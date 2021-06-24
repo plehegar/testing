@@ -10,7 +10,7 @@ set -exu
 echo "FOLDER: ${FOLDER}"
 
 # set the GitHub credentials and env
-git config --global user.email noreply@unknown.w3.org
+git config --global user.email w3cbot-gh@w3.org
 git config --global user.name w3cbot
 git config --global user.password $GITHUB_TOKEN
 
