@@ -14,7 +14,7 @@ git config --global user.email noreply@unknown.w3.org
 git config --global user.name w3cbot
 git config --global user.email $COMMIT_AUTHOR_EMAIL
 
-REPO_URL="https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+REPO_URL="https://w3cbot:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
 
 # Recreate some Travis CI env variables
 TRAVIS_BRANCH=${GH_BRANCH:-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}
