@@ -39,7 +39,7 @@ jobs:
     name: Deploy to ARIA to gh-pages
     runs-on: ubuntu-latest
     steps:
-      - NAME: Checkout the repository
+      - name: Checkout the repository
         run: |
           git clone --depth=3 --branch=main https://github.com/w3c/aria.git .
       - name: Build the specification
