@@ -33,6 +33,7 @@ jobs:
           rm -rf gh-pages/common gh-pages/img
           cp -R common img gh-pages
           curl https://labs.w3.org/spec-generator/?type=respec"&"url=https://raw.githack.com/w3c/aria/main/index.html -o gh-pages/index.html -f  --retry 3
+          ls -la
       - name: Deploy
         run: plhtesting/.github/scripts/deploy.sh
         env:
