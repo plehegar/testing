@@ -22,6 +22,8 @@ fi
 git add -A .
 git commit -m ":robot: Deploy to GitHub Pages: $GITHUB_SHA from branch $GITHUB_REF"
 
+ls -la
+
 git push $REPO_URL $BRANCH
 
 echo done
