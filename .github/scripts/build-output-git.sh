@@ -7,7 +7,7 @@ set -exu
 # GITHUB_EVENT_PATH is a JSON file so ...this is a bit of a hack...
 cat $GITHUB_EVENT_PATH
 
-git config --global user.email github-action@users.noreply.github.com
+git config --global user.email noreply@unknown.w3.org
 git config --global user.name w3cbot
 git config --global user.password $GITHUB_TOKEN
 
