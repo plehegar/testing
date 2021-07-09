@@ -1,0 +1,167 @@
+name: Learning GitHub actions
+
+# Reference documentation: https://docs.github.com/en/actions/reference
+
+# See https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
+on:
+  push:
+    branches:
+      - main
+
+# GitHub secrets are stored in
+# https://github.com/[your_repo]/settings/secrets/actions
+# for example:
+#  https://github.com/w3c/pointerevents/settings/secrets/actions
+
+jobs:
+
+# All of the following jobs will run in parallel
+
+  use-node:
+    name: Using NodeJS
+    runs-on: ubuntu-latest
+    steps:
+      # the following step will checkout your github repository
+      - uses: actions/checkout@v2
+      # the following step will install nodejs, including npm
+      - uses: actions/setup-node@v2
+      - run: npm install
+      - run: npm start
+
+  use-script:
+    name: Using a shell script
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # don't forget: git update-index --chmod +x ./.github/scripts/build.sh
+      - run: ./.github/scripts/build.sh
+        shell: bash
+
+  use-script-2:
+    name: Using a shell script inline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          cd foobar
+          echo $PWD
+        shell: bash
+
+  use-java:
+    name: Using a java program
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Java
+        # note that this also deploys ant
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - run: java -cp java HelloWorld
+
+  use-python:
+    runs-on: ubuntu-latest
+    name: Using a python script
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+          architecture: x64
+      - run: pip install aiohttp
+      - run: python index.py
+
+  # this is an example when combining use-script and use-python
+  use-script-and-python:
+    runs-on: ubuntu-latest
+    name: Using a shell and a python script
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+          architecture: x64
+      # don't forget: git update-index --chmod +x ./python.sh
+      - name: Run the script that invokes python
+        run: ./python.sh
+        shell: bash
+
+  use-w3c-echidna:
+    runs-on: ubuntu-latest
+    name: Use echidna as-is
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run curl
+        env:
+          URL: https://example.org/index.html
+          DECISION: https://example.org/group_decision.html
+        # you can use ${{ secrets.W3C_TR_TOKEN }} instead of NONE if you update your repo secret settings
+        run: |
+          echo Publishing $URL with $DECISION
+          curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=NONE"
+          echo "ok"
+
+  use-branch:
+    runs-on: ubuntu-latest
+    name: Use a named branch
+    if: ${{ github.ref == 'refs/heads/unknown-branch' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run curl
+        run: |
+          echo "This should never be run"
+          ./unknownCommand.sh "This doesn't exist and should not run"
+
+  use-irc:
+    runs-on: ubuntu-latest
+    name: Notifying IRC dependant on an other job
+    needs: use-w3c-echidna
+    steps:
+      - name: Setup IRC notifier
+        uses: Gottox/irc-message-action@v2
+        with:
+          channel: '#github-irc-notify'
+          server: irc.w3.org
+          port: 6667
+          tls: false
+          nickname: github-action-irc
+          message: |
+            ${{ github.actor }} pushed to ${{ github.repository }} commit ${{ github.sha }}
+
+  use-deploy-script:
+    name: Using a shell script to deploy a build folder on a GitHub branch
+    runs-on: ubuntu-latest
+    env:
+      FOLDER: deploybuild
+    steps:
+      - uses: actions/checkout@v2
+      # don't forget: git update-index --chmod +x ./.github/scripts/build-output.sh
+      - name: Run the build-output.sh script
+        run: ./.github/scripts/build-output.sh
+        shell: bash
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: gh-pages-2
+          # FOLDER is already set up so no need to repeat here
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  use-deploy-script-git-command:
+    name: Using a shell script to deploy a build folder on a GitHub branch with the git command
+    runs-on: ubuntu-latest
+    env:
+      FOLDER: deploybuild
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # The following variables will be used to recreate some Travis CI env variables
+      GH_BRANCH: ${{ github.head_ref }}
+      GH_EVENT_NUMBER: ${{ github.event.number }}
+    steps:
+      - uses: actions/checkout@v2
+      # don't forget: git update-index --chmod +x ./.github/scripts/build-output-git.sh
+      - name: Run the build-output-git.sh script
+        run: ./.github/scripts/build-output-git.sh
+        shell: bash
