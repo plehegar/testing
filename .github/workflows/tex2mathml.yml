@@ -25,5 +25,5 @@ jobs:
       - uses: actions/checkout@v2
       # the following step will install nodejs, including npm
       - uses: actions/setup-node@v2
-      - run: npm install -g tex2mathml
+      - run: npm install tex2mathml
       - run: tex2mathml
