@@ -28,12 +28,14 @@ jobs:
       - name: Convert Tex to MathML
         run: |
           npm install tex2mathml
-          node node_modules/tex2mathml/tex2mathml.js -o output.html values.html
+          mkdir mathml
+          node node_modules/tex2mathml/tex2mathml.js -o mathml/values.html values.html
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
           BRANCH: gh-pages-3
+          FOLDER: mathml
           # FOLDER is already set up so no need to repeat here
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
