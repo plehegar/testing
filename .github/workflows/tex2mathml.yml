@@ -28,4 +28,5 @@ jobs:
       - run: npm install tex2mathml
       - run: ls -la
       - run: node node_modules/tex2mathml/tex2mathml.js -o output.html values.html
+      - run: ls -la
 
