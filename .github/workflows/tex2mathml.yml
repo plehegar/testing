@@ -27,4 +27,5 @@ jobs:
       - uses: actions/setup-node@v2
       - run: npm install tex2mathml
       - run: ls -la
-      - run: tex2mathml
+      - run: node tex2mathml -o output.html values.html
+
