@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir output
           git clone --depth=1 --branch=gh-pages-3 https://github.com/plehegar/testing.git output
-          echo "$RANDOM" >>output/numbers.txt
+          echo "$RANDOM" >>output/numbers.md
       - name: deploy
         run: .github/scripts/deploy.sh
         env:
