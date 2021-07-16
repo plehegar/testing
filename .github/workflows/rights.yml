@@ -22,6 +22,8 @@ jobs:
     name: Using a shell script to deploy a build folder on a GitHub branch with the git command
     runs-on: ubuntu-latest
     steps:
+      - name: Deploy a copy of main branch
+        uses: actions/checkout@v2
       - name: script
         run: |
           mkdir output
