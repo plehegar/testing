@@ -1,8 +1,5 @@
 #!/bin/bash
 set -exu
-# e: Exit immediately if a command exits with a non-zero status
-# x: Print commands and their arguments as they are executed
-# u: Treat unset variables as an error when substituting
 
 # NOTE: you probably need to add 'w3cbot' to the list of authorized users to push to your repository
 git config --global user.email w3cbot-gh@w3.org
